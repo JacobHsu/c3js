@@ -1,5 +1,9 @@
 # c3js
 
+## References
+
+[vue-c3 demo - CodeSandbox](https://codesandbox.io/s/w026o6xy7l)
+
 ## Project setup
 ```
 yarn install

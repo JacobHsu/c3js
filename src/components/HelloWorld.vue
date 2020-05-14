@@ -1,40 +1,89 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <!-- <h1>{{ msg }}</h1> -->
+    <vue-c3 :handler="handler"></vue-c3>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import VueC3 from 'vue-c3'
+import 'c3/c3.min.css'
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  components: {
+    VueC3
+  },
+  data: () => ({
+    handler: new Vue(),
+    val: 100
+  }),
+  computed: {
+    options() {
+      return {
+        data: {
+          columns: [
+            ['弊社', 0, 20, 10, 40, 15, this.val],
+            ['御社', 30, 200, 100, 400, 150, 250]
+          ],
+        },
+        axis: {
+          x: {
+            label: {
+              text: '期',
+              position: 'outer-center'
+            }
+          },
+          y: {
+            label: {
+              text: '売り上げ(億)',
+              position: 'outer-middle'
+            }
+          }
+        },
+        tooltip: {
+          format: {
+            title(d) {
+              return `第 ${d} 期`
+            },
+            value(value) {
+              return `${value} 億円`
+            }
+          }
+        },
+        grid: {
+          x: {
+            show: true
+          },
+          y: {
+            show: true
+          }
+        },
+        legend: {
+          position: 'right'
+        }
+      }
+    }
+  },
+  mounted() {
+    this.handler.$emit('init', this.options)
+  },
+  watch: {
+    options() {
+      this.handler.$emit('dispatch', chart => {
+        const options = {
+          columns: [
+            ['弊社', 0, 20, 10, 40, 15, this.val],
+            ['御社', 30, 200, 100, 400, 150, 250]
+          ]
+        }
+        chart.load(options)
+      })
+    }
   }
 }
 </script>
