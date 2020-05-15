@@ -1,8 +1,12 @@
 # c3js
 
+[axes_x_tick_count.js](https://c3js.org/samples/axes_x_tick_count.html)
+
 ## References
 
 [vue-c3 demo - CodeSandbox](https://codesandbox.io/s/w026o6xy7l)
+[Tooltip Format](https://c3js.org/samples/tooltip_format.html)  
+[X Axis Tick Count](https://c3js.org/samples/axes_x_tick_count.html)  
 
 ## note
 
@@ -11,7 +15,6 @@
 放前端有跨域的問題
 
 Access to fetch at 'https://finance.yahoo.com/quote/2330.tw/history' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
-
 
 ## Project setup
 ```
